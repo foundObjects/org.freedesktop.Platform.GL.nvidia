@@ -1,14 +1,29 @@
 {
     "id": "org.freedesktop.Platform.GL.nvidia-@@NVIDIA_VERSION@@",
     "branch": "@@SDK_BRANCH@@",
-    "runtime": "org.freedesktop.Platform",
+    "runtime": "org.freedesktop.Platform/x86_64/@@SDK_RUNTIME_VERSION@@",
     "build-extension": true,
-    "sdk": "org.freedesktop.Sdk",
+    "sdk": "org.freedesktop.Sdk/x86_64/@@SDK_RUNTIME_VERSION@@",
     "runtime-version": "@@SDK_RUNTIME_VERSION@@",
-    "sdk-extensions": [],
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Compat.i386",
+        "org.freedesktop.Sdk.Extension.toolchain-i386"
+    ],
     "separate-locales": false,
     "cleanup": [ ],
     "build-options" : {
+        "arch": {
+            "i386": {
+                "append-path": "/usr/lib/sdk/toolchain-i386/bin",
+                "env": {
+                    "CC": "i686-unknown-linux-gnu-gcc",
+                    "CXX": "i686-unknown-linux-gnu-g++",
+                    "LD": "i686-unknown-linux-gnu-ld"
+                },
+                "prepend-pkg-config-path": "/usr/lib/i386-linux-gnu/pkgconfig",
+                "ldflags": "-L/usr/lib/i386-linux-gnu"
+            }
+        },
         "cflags": "-O2 -g -I/usr/lib/x86_64-linux-gnu/GL/nvidia-@@NVIDIA_VERSION@@/include",
         "cxxflags": "-O2 -g",
         "ldflags": "-L/usr/lib/x86_64-linux-gnu/GL/nvidia-@@NVIDIA_VERSION@@/lib",
