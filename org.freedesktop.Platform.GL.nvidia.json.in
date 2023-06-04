@@ -10,14 +10,15 @@
         "org.freedesktop.Sdk.Extension.toolchain-i386"
     ],
     "separate-locales": false,
-    "cleanup": [ ],
+    "cleanup": ["/include", "/share"],
     "build-options" : {
+        "append-ld-library-path": "/usr/lib/x86_64-linux-gnu/GL/nvidia-@@NVIDIA_VERSION@@/lib",
         "cflags": "-O2 -g -I/usr/lib/x86_64-linux-gnu/GL/nvidia-@@NVIDIA_VERSION@@/include",
         "cxxflags": "-O2 -g",
-        "ldflags": "-L/usr/lib/x86_64-linux-gnu/GL/nvidia-@@NVIDIA_VERSION@@/lib",
         "prefix": "/usr/lib/x86_64-linux-gnu/GL/nvidia-@@NVIDIA_VERSION@@",
         "env": {
-            "V": "1"
+            "V": "1",
+            "LDFLAGS": "-L/usr/lib/x86_64-linux-gnu/GL/nvidia-@@NVIDIA_VERSION@@/lib"
         },
         "arch": {
             "i386": {
@@ -36,7 +37,25 @@
     ],
     "modules": [
         {
-            "cleanup": ["/include", "/share"],
+            "cleanup": ["/lib/libzstd.so*"],
+            "name": "libzstd",
+            "no-autogen": true,
+            "subdir": "lib",
+            "make-args": [ "lib-mt" ],
+            "make-install-args": [
+                "PREFIX=${FLATPAK_DEST}",
+                "LIBDIR=${FLATPAK_DEST}/lib",
+                "install-static"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/facebook/zstd/releases/download/v1.5.4/zstd-1.5.4.tar.gz",
+                    "sha256": "0f470992aedad543126d06efab344dc5f3e171893810455787d38347343a4424"
+                }
+            ]
+        },
+        {
             "name": "zlib",
             "config-opts": [ "--static" ],
             "sources": [
@@ -48,7 +67,6 @@
             ]
         },
         {
-            "cleanup": ["/include", "/share"],
             "name": "lzma",
             "config-opts": [ "--disable-shared" ],
             "sources": [
