@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # See this for current versions: https://www.nvidia.com/object/unix.html
-BETA_VERSIONS="535.54.03"
+BETA_VERSIONS="535.86.05"
 VULKAN_VERSIONS=""
 NEW_FEATURE_VERSIONS=""
 PRODUCTION_VERSIONS=""
